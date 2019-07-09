@@ -1,0 +1,2 @@
+matplotlib==3.*
+pytz==2019.*
