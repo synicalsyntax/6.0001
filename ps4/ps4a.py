@@ -23,17 +23,23 @@ def get_permutations(sequence):
     if len(sequence) < 2:  # no other permutations for string with 1 character
         return list(sequence)
 
-    permutations = set()  # make sure all permutations are unique
+    def remove(index):
+        """
+        Removes the character at specified index from the sequence.
 
-    for index, char in enumerate(sequence):
-        # recursively find permutations for all possible substrings
+        :param index: The index of the character to remove from the sequence.
+        :type index: int
+        :returns: The string without the removed character.
+        :rtype: str
+        """
+
         endIndex = index if index == len(sequence) else index + 1
-        spliced_string = sequence[:index] + sequence[endIndex:]
-        arrangements = get_permutations(spliced_string)
-        for string in arrangements:  # rejoin substrings with base char
-            permutations.add(char + string)
+        return sequence[:index] + sequence[endIndex:]
 
-    return list(permutations)
+    enum = enumerate(sequence)
+    perms = list({c + s for i, c in enum for s in get_permutations(remove(i))})
+    perms.sort()  # sort to get an ordered list from the unordered set
+    return perms
 
 
 if __name__ == '__main__':
@@ -48,12 +54,12 @@ if __name__ == '__main__':
 
     example_input = 'foo'
     print('Input:', example_input)
-    print('Expected Output:', ['oof', 'ofo', 'foo'])
+    print('Expected Output:', ['foo', 'ofo', 'oof'])
     print('Actual Output:', get_permutations(example_input))
 
     example_input = 'bobo'
     print('Input:', example_input)
-    print('Expected Output:', ['oobb', 'obbo', 'bobo', 'bboo', 'boob', 'obob'])
+    print('Expected Output:', ['bboo', 'bobo', 'boob', 'obbo', 'obob', 'oobb'])
     print('Actual Output:', get_permutations(example_input))
 
     example_input = 'hi'

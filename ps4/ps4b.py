@@ -251,11 +251,21 @@ class CiphertextMessage(Message):
         Returns: a tuple of the best shift value used to decrypt the message
         and the decrypted message text using that shift value
         """
-        shifts = {}
-        for shift in range(1, 26):
+        def get_valid_count(shift):
+            """
+            Shifts a message by the specified shift and calculates the amount
+            of valid words in the shifted message.
+
+            :param shift: The amount to shift the message by.
+            :type shift: int
+            :returns: The amount of valid words in the shifted message.
+            :rtype: int
+            """
             words = self.apply_shift(shift).split(' ')
             valid_words = [w for w in words if is_word(self.valid_words, w)]
-            shifts[shift] = len(valid_words)
+            return len(valid_words)
+
+        shifts = {shift: get_valid_count(shift) for shift in range(1, 26)}
         best_shift = max(shifts, key=shifts.get)
         return (best_shift, self.apply_shift(best_shift))
 

@@ -157,13 +157,19 @@ def update_hand(hand, word):
     hand: dictionary (string -> int)
     returns: dictionary (string -> int)
     """
-    new_hand = {}
-    for letter in hand:
-        hand_count = hand.get(letter, 0)
-        letter_count_in_word = word.lower().count(letter)
-        if (hand_count != letter_count_in_word):
-            new_hand[letter] = hand_count - letter_count_in_word
-    return new_hand
+    def get_count_diff(letter):
+        """
+        Calculates the difference between the count of the given letter in a
+        hand and the count of the given letter in the word.
+
+        :param letter: The letter to count.
+        :type letter: str
+        :returns: The letter count difference between the hand and the word.
+        :rtype: int
+        """
+        return hand.get(letter, 0) - word.lower().count(letter)
+
+    return {l: get_count_diff(l) for l in hand if get_count_diff(l) != 0}
 
 
 #

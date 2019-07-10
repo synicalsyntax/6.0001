@@ -161,14 +161,34 @@ class EncryptedSubMessage(SubMessage):
 
         Hint: use your function from Part 4A
         """
-        permutations = get_permutations(VOWELS_LOWER)
-        decryptions = {}
-        words = self.valid_words
-        for permutation in permutations:
+        perms = get_permutations(VOWELS_LOWER)
+
+        def trans(permutation):
+            """
+            Transposes the message according to the given permutation.
+
+            :param permutation: The permutation to transpose with.
+            :type permutation: str
+            :returns: The transposed message.
+            :rtype: str
+            """
             transpose_dict = self.build_transpose_dict(permutation)
-            trans = self.apply_transpose(transpose_dict)
-            val = [word for word in trans.split(' ') if is_word(words, word)]
-            decryptions[trans] = len(list(val))
+            return self.apply_transpose(transpose_dict)
+
+        def get_valid_count(trans):
+            """
+            Calculates the amount of valid words in a transposed message.
+
+            :param trans: The transposed message.
+            :type trans: str
+            :returns: The amount of valid words in the transposed message.
+            :rtype: int
+            """
+            words = self.valid_words
+            valid = [word for word in trans.split(' ') if is_word(words, word)]
+            return len(valid)
+
+        decryptions = {trans(p): get_valid_count(trans(p)) for p in perms}
         return max(decryptions, key=decryptions.get)
 
 
@@ -190,7 +210,7 @@ if __name__ == '__main__':
     enc_dict = message.build_transpose_dict(permutation)
     print("Original message:", message.get_message_text())
     print("Permutation:", permutation)
-    print("Expected encryption:", "WARLD HORD OND CALD, babo saft ond worm")
+    print("Expected encryption:", "WARLD HORD OND CALD, babo saft ond worm.")
     print("Actual encryption:", message.apply_transpose(enc_dict))
     enc_message = EncryptedSubMessage(message.apply_transpose(enc_dict))
     print("Decrypted message:", enc_message.decrypt_message())
