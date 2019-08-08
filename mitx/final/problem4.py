@@ -28,18 +28,12 @@ def longest_run(L):
                 inc = temp_inc.copy()
             temp_inc.clear()
 
-        if before == current:
-            if (len(temp_inc) == 0):
-                temp_inc = [before]
-            if (len(temp_dec) == 0):
-                temp_dec = [before]
-            temp_inc.append(current)
-            temp_dec.append(current)
-        if before < current:
+        if before <= current:
             if (len(temp_inc) == 0):
                 temp_inc = [before]
             temp_inc.append(current)
-        if before > current:
+
+        if before >= current:
             if (len(temp_dec) == 0):
                 temp_dec = [before]
             temp_dec.append(current)
@@ -52,14 +46,22 @@ def longest_run(L):
 
     run = []
 
-    def stringify(array):
-        return ' '.join([str(l) for l in array])
+    def conjoin(int_list):
+        """
+        Conjoins an list of integers into a space-separated string.
+        :param list: The list of integers to conjoin
+        :type list: list of int
+        :returns: A space-separated string of integers from the list.
+        :rtype: str
+        """
+        return ' '.join([str(l) for l in int_list])
 
     if (len(dec) == len(inc)):
-        string = stringify(L)
-        inc_index = string.find(stringify(inc))
-        dec_index = string.find(stringify(dec))
+        string = conjoin(L)
+        inc_index = string.find(conjoin(inc))
+        dec_index = string.find(conjoin(dec))
         run = inc.copy() if inc_index < dec_index else dec.copy()
     else:
         run = inc.copy() if len(inc) > len(dec) else dec.copy()
+
     return sum(run)

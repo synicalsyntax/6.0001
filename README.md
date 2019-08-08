@@ -1,9 +1,17 @@
-# MIT OCW 6.0001 Problem Sets
+# MIT 6.0001 Coursework
 
-Solutions for [problem
-sets](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/assignments/)
-from the [MIT OCW 6.0001
-course](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/index.htm).
+Solutions for:
+* Midterm and final exam problems from the [6.0001 Advanced Standing Exam
+  course on
+  MITx](https://lms.mitx.mit.edu/courses/course-v1:MITx+6.0001.ASEr+Exam/course/)
+  (located in the `/mitx` folder)
+  * You must have MIT certificates installed to access the exam.
+* [Problem
+  sets](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/assignments/)
+  from the [MIT OCW 6.0001
+  course](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/index.htm)
+  (located in the `/ocw` folder)
+
 
 ## Installation
 

@@ -9,9 +9,10 @@ def convert_to_mandarin(us_num):
     '''
     if trans.get(us_num) is not None:
         return trans.get(us_num)
+    translations = [trans.get(num) for num in us_num]
     if int(us_num) < 20:
-        return ' '.join([trans['10'], trans[us_num[1:]]])
+        return ' '.join([trans.get('10'), translations[1]])
     if '0' in us_num:
-        return ' '.join([trans[us_num[:1]], trans['10']])
+        return ' '.join([translations[0], trans.get('10')])
     else:
-        return ' shi '.join([trans[d] for d in us_num])
+        return ' '.join([translations[0], trans.get('10'), translations[1]])
